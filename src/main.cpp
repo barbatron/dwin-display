@@ -206,6 +206,7 @@ void drawRect(
 void on_handshaked()
 {
   Serial.println("Handshake complete");
+  handshook = true;
   clear(0);
   showJpeg(0);
   setScreenDir(1);
@@ -228,20 +229,15 @@ void setup()
   Serial.println("DWIN serial begun, sending handshake");
 
   const uint8_t ok[2] = {0xC3, 0x3C};
+
   expectResponse(ok, "handshake OK", on_handshaked);
+  sendHandshake();
 }
 
 long loopno = 0;
 
 void loop()
 {
-  if (!handshook && (loopno % 1500000 == 0))
-  {
-    Serial.println("Handshake timeout - re-sending");
-    sendHandshake();
-  }
-  loopno++;
-
   while (dwinSerial.available())
   {
     uint8_t c = dwinSerial.read();
