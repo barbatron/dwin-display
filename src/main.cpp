@@ -82,6 +82,9 @@ void fulfillResponse()
 
 void handleReceived(uint8_t c)
 {
+  Serial.print("I received: ");
+  Serial.println(c, HEX);
+
   if ((expectedResponses.isEmpty()))
     return;
 
@@ -241,8 +244,6 @@ void loop()
   while (dwinSerial.available())
   {
     uint8_t c = dwinSerial.read();
-    Serial.print("I received: ");
-    Serial.println(c, HEX);
     handleReceived(c);
   }
 }
