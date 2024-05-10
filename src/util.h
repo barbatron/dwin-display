@@ -3,11 +3,11 @@
 
 #include <Arduino.h>
 
-HardwareSerial dwinSerial = Serial2;
-
 void noop()
 {
 }
+
+HardwareSerial dwinSerial = Serial2;
 
 void send(uint8_t *data, int len)
 {
